@@ -17,6 +17,8 @@
             <th>Başlık</th>
             <th>Açıklama</th>
             <th>İşlemler</th>
+            <th>Aktif mi?</th>
+
         </tr>
     </thead>
     <tbody>
@@ -33,6 +35,13 @@
                     @method('DELETE')
                     <button class="btn btn-danger btn-sm" onclick="return confirm('Silinsin mi?')">Sil</button>
                 </form>
+            </td>
+             <td>
+                @if ($box->is_active)
+                    <span class="badge bg-success">Aktif</span>
+                @else
+                    <span class="badge bg-secondary">Pasif</span>
+                @endif
             </td>
         </tr> 
         @endforeach

@@ -21,7 +21,13 @@ class HomeBoxController extends Controller
 
     public function store(Request $request)
     {
-        HomeBox::create($request->all());
+        HomeBox::create([
+            'title'     => $request->title,
+            'text'      => $request->text,
+            'icon'      => $request->icon,
+            'is_active' => $request->has('is_active') ? 1 : 0,
+        ]);
+
         return redirect()->route('homeboxes.index')->with('success', 'Kutu eklendi!');
     }
 
@@ -34,7 +40,13 @@ class HomeBoxController extends Controller
     public function update(Request $request, $id)
     {
         $box = HomeBox::findOrFail($id);
-        $box->update($request->all());
+
+        $box->update([
+            'title'     => $request->title,
+            'text'      => $request->text,
+            'icon'      => $request->icon,
+            'is_active' => $request->has('is_active') ? 1 : 0,
+        ]);
 
         return redirect()->route('homeboxes.index')->with('success', 'Kutu güncellendi!');
     }

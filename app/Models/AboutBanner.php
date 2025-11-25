@@ -9,6 +9,7 @@ class AboutBanner extends Model
     protected $fillable = [
         'image',
         'title',
-        'description'
+        'description',
+        'is_active'
     ];
 }

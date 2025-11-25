@@ -23,6 +23,12 @@
         <textarea name="description" class="form-control" required>{{ $banner->description }}</textarea>
     </div>
 
+    <div class="mb-3 form-check">
+        <input type="checkbox" name="is_active" value="1" class="form-check-input"
+               {{ $banner->is_active ? 'checked' : '' }}>
+        <label class="form-check-label">Bu banner aktif olsun</label>
+    </div>
+
     <button class="btn btn-primary">Güncelle</button>
 
 </form>

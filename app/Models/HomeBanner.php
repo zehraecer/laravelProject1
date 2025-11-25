@@ -11,6 +11,7 @@ class HomeBanner extends Model
         'title',
         'subtitle',
         'button_text',
-        'button_link'
+        'button_link',
+        'is_active'
     ];
 }

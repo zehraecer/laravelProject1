@@ -18,6 +18,8 @@
             <th>Başlık</th>
             <th>Alt Başlık</th>
             <th>İşlemler</th>
+            <th>Aktif mi?</th>
+
         </tr>
     </thead>
     <tbody>
@@ -39,6 +41,14 @@
                 </form>
 
             </td>
+            <td>
+                @if ($banner->is_active)
+                    <span class="badge bg-success">Aktif</span>
+                @else
+                    <span class="badge bg-secondary">Pasif</span>
+                @endif
+            </td>
+
         </tr>
         @endforeach
     </tbody>

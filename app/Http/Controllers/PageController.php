@@ -10,17 +10,17 @@ class PageController extends Controller
 {
     // ----- FRONTEND -----2
     public function home()
-    {
-        $banner = \App\Models\HomeBanner::first();
-        $boxes = \App\Models\HomeBox::all();
-        $about = \App\Models\HomeAbout::first();
+        {
+            $banner = \App\Models\HomeBanner::where('is_active', 1)->first();
+            $boxes  = \App\Models\HomeBox::where('is_active', 1)->get();
+            $about  = \App\Models\HomeAbout::first();
 
-        return view('home', compact('banner', 'boxes', 'about'));
-    }
+            return view('home', compact('banner', 'boxes', 'about'));
+        }
 
     public function about()
     {
-        $banner   = \App\Models\AboutBanner::first();
+        $banner = \App\Models\AboutBanner::where('is_active', true)->first();
         $boxes    = \App\Models\AboutBox::all();
         $stats    = \App\Models\AboutStat::all();
         $team     = \App\Models\AboutTeam::all();

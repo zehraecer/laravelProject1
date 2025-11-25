@@ -38,7 +38,8 @@ use App\Http\Controllers\Admin\HomeAboutController;
 
 
 
-Route::middleware('admin')->group(function () {
+Route::middleware('admin')->group(function ()
+{
 
     Route::get('/admin', function () {
         return view('admin.dashboard');

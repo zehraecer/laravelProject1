@@ -17,9 +17,11 @@
             <th>Görsel</th>
             <th>Başlık</th>
             <th>Açıklama</th>
+            <th>Durum</th>
             <th>İşlemler</th>
         </tr>
     </thead>
+
     <tbody>
         @foreach ($banners as $banner)
         <tr>
@@ -27,13 +29,26 @@
             <td><img src="{{ $banner->image }}" width="100"></td>
             <td>{{ $banner->title }}</td>
             <td>{{ $banner->description }}</td>
+
+            <td>
+                @if($banner->is_active)
+                    <span class="badge bg-success">Aktif</span>
+                @else
+                    <span class="badge bg-secondary">Pasif</span>
+                @endif
+            </td>
+
             <td>
                 <a href="{{ route('banner.edit', $banner->id) }}" class="btn btn-warning btn-sm">Düzenle</a>
 
-                <form action="{{ route('banner.destroy', $banner->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('banner.destroy', $banner->id) }}"
+                      method="POST"
+                      style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('Silinsin mi?')">Sil</button>
+                    <button class="btn btn-danger btn-sm" onclick="return confirm('Silinsin mi?')">
+                        Sil
+                    </button>
                 </form>
             </td>
         </tr>

@@ -9,6 +9,7 @@ class HomeBox extends Model
     protected $fillable = [
         'icon',
         'title',
-        'text'
+        'text',
+        'is_active'
     ];
 }

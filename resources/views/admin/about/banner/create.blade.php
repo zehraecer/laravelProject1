@@ -22,6 +22,11 @@
         <textarea name="description" class="form-control" required></textarea>
     </div>
 
+    <div class="mb-3 form-check">
+        <input type="checkbox" name="is_active" value="1" class="form-check-input" id="is_active">
+        <label for="is_active" class="form-check-label">Bu banner aktif olsun</label>
+    </div>
+
     <button class="btn btn-success">Kaydet</button>
 
 </form>

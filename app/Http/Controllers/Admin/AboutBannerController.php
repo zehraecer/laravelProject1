@@ -21,15 +21,20 @@ class AboutBannerController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'required',
-            'title' => 'required',
-            'description' => 'required'
-        ]);
+        // Eğer bu aktifse diğerlerini pasif yap
+        if ($request->has('is_active')) {
+            AboutBanner::query()->update(['is_active' => false]);
+        }
 
-        AboutBanner::create($request->all());
+        AboutBanner::create([
+            'image'      => $request->image,
+            'title'      => $request->title,
+            'description'=> $request->description,   // <-- EKSİK OLAN BUYDU!
+            'is_active'  => $request->has('is_active') ? 1 : 0,
+    ]);
 
-        return redirect()->route('banner.index')->with('success', 'Banner oluşturuldu');
+
+        return redirect()->route('banner.index')->with('success', 'Banner eklendi.');
     }
 
     public function edit($id)
@@ -41,14 +46,24 @@ class AboutBannerController extends Controller
     public function update(Request $request, $id)
     {
         $banner = AboutBanner::findOrFail($id);
-        $banner->update($request->all());
 
-        return redirect()->route('banner.index')->with('success', 'Banner güncellendi');
+        if ($request->has('is_active')) {
+            AboutBanner::where('id', '!=', $id)->update(['is_active' => false]);
+        }
+
+        $banner->update([
+            'image'      => $request->image,
+            'title'      => $request->title,
+            'description'=> $request->description,  // <-- Eksik olan buydu!
+            'is_active'  => $request->has('is_active') ? 1 : 0,
+        ]);
+
+        return redirect()->route('banner.index')->with('success', 'Banner güncellendi.');
     }
 
     public function destroy($id)
     {
-        AboutBanner::findOrFail($id)->delete();
-        return redirect()->route('banner.index')->with('success', 'Banner silindi');
+        AboutBanner::destroy($id);
+        return redirect()->route('banner.index')->with('success', 'Banner silindi!');
     }
 }

@@ -8,6 +8,8 @@ class HomeAbout extends Model
 {
     protected $fillable = [
         'image',
-        'text'
+        'text',
+        'is_active'
+
     ];
 }

@@ -21,9 +21,23 @@ class HomeBannerController extends Controller
 
     public function store(Request $request)
     {
-        HomeBanner::create($request->all());
-        return redirect()->route('homebanner.index')->with('success', 'Banner eklendi!');
+        // Eğer bu banner aktif seçildiyse, diğer tüm banner’ları pasif yap
+        if ($request->has('is_active')) {
+            HomeBanner::query()->update(['is_active' => false]);
+        }
+
+        HomeBanner::create([
+            'image' => $request->image,
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'button_text' => $request->button_text,
+            'button_link' => $request->button_link,
+            'is_active' => $request->has('is_active'),
+        ]);
+
+        return redirect()->route('homebanner.index')->with('success', 'Banner eklendi.');
     }
+
 
     public function edit($id)
     {
@@ -34,9 +48,22 @@ class HomeBannerController extends Controller
     public function update(Request $request, $id)
     {
         $banner = HomeBanner::findOrFail($id);
-        $banner->update($request->all());
 
-        return redirect()->route('homebanner.index')->with('success', 'Banner güncellendi!');
+        // Eğer aktif işaretlendiyse diğerlerini pasif yap
+        if ($request->has('is_active')) {
+            HomeBanner::where('id', '!=', $id)->update(['is_active' => false]);
+        }
+
+        $banner->update([
+            'image' => $request->image,
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'button_text' => $request->button_text,
+            'button_link' => $request->button_link,
+            'is_active' => $request->has('is_active'),
+        ]);
+
+        return redirect()->route('homebanner.index')->with('success', 'Banner güncellendi.');
     }
 
     public function destroy($id)
